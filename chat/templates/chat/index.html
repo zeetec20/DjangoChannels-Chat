@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block additionalHead %}
+<link rel="canonical" href="https://codepen.io/michellelpepe/pen/GoQyoJ?depth=everything&order=popularity&page=84&q=pack&show_forks=false" />    
+{% endblock additionalHead %}
+    
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'asset/css/chat/style.css' %}">
+{% endblock style %}
+    
+
+{% block body %}
+<div class='container'>
+    <div class='chatbox' ng-controller="MessageCtrl as chatMessage" style="overflow: hidden;">
+        <div class='chatbox__user-list'>
+            <h1>Friends Online</h1>
+            
+            {% for user in listUser %}
+
+                {% if request.user.username != user.username %}
+                    <div class='chatbox__user--busy user' username="{{user.username}}">
+                        <p class="username" onclick="selectUser('{{user.username}}')">{{user.username}} &nbsp;<span id="unRead"></span></p>
+                    </div>
+                {% endif %}
+                
+            {% endfor %}
+                
+        </div>
+        <h1 id="usernameFriend"></h1>
+        <div class="lobby">
+            
+        </div>
+        <div class="form-message">
+            <input type="text" placeholder="Type Message" id="inputMessage">
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+let user = '{{ request.user.username }}'
+</script>
+
+<script src="{% static 'asset/js/zeetec.js' %}"></script>
+<script src="{% static 'asset/js/chat/script.js' %}"></script>
+<script src="{% static 'asset/js/chat/function.js' %}"></script>
+<script src="{% static 'asset/js/chat/websocket.js' %}"></script>
+{% endblock script %}
+    
